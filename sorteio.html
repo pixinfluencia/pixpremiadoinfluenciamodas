@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sorteio Oficial - Pix Influência</title>
+  <style>
+    body { 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      text-align: center; 
+      background: radial-gradient(circle, #1e1e1e 0%, #000000 100%); 
+      color: white;
+      margin: 0; 
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 215, 0, 0.3); 
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      width: 90%;
+      max-width: 550px;
+      margin: 20px 0;
+    }
+
+    h1 { color: #FFD700; margin-top: 0; font-size: 28px; text-transform: uppercase; letter-spacing: 2px;}
+    
+    .premio-atual-box {
+      background: rgba(255, 215, 0, 0.1);
+      border: 2px solid #FFD700;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+    }
+    .premio-label { font-size: 14px; color: #ccc; text-transform: uppercase; letter-spacing: 1px;}
+    .premio-nome { font-size: 26px; font-weight: 900; color: #fff; margin-top: 5px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);}
+
+    .caixa-roleta {
+      background: linear-gradient(135deg, #FFD700 0%, #F57C00 100%);
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 30px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+      border: 6px solid white;
+    }
+
+    #numeroExibicao {
+      font-size: 65px;
+      font-weight: 900;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    /* Lista de Vencedores */
+    .historico-vencedores { margin-top: 25px; text-align: left; }
+    .card-vencedor { 
+      background: rgba(255, 255, 255, 0.1); 
+      border-left: 5px solid #FFD700; 
+      padding: 15px; 
+      border-radius: 8px; 
+      margin-bottom: 10px; 
+      animation: fadeIn 0.5s ease-in;
+    }
+    .card-vencedor.prata { border-left-color: #C0C0C0; }
+    .card-vencedor.bronze { border-left-color: #cd7f32; }
+    
+    .vencedor-titulo { font-size: 14px; color: #FFD700; font-weight: bold; margin-bottom: 5px;}
+    .card-vencedor.prata .vencedor-titulo { color: #C0C0C0; }
+    .card-vencedor.bronze .vencedor-titulo { color: #cd7f32; }
+    
+    .vencedor-dados { font-size: 18px; color: white; }
+    .vencedor-zap { font-size: 13px; color: #aaa; margin-top: 5px; }
+
+    button { 
+      background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+      color: white; 
+      border: none; 
+      padding: 18px 30px;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+      transition: all 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      width: 100%;
+    }
+    button:hover { transform: scale(1.03); box-shadow: 0 8px 25px rgba(76, 175, 80, 0.6);}
+    button:disabled { background: #444; color: #777; cursor: not-allowed; box-shadow: none; transform: none;}
+
+    /* NOVO: Modal de Aviso Customizado */
+    #modalAviso { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(5px); }
+    .aviso-content { background: #1e1e1e; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; border: 2px solid #f44336; box-shadow: 0 10px 30px rgba(244, 67, 54, 0.4); }
+    .aviso-icon { font-size: 50px; margin-bottom: 10px; animation: shake 0.5s; }
+    .btn-aviso { background: #f44336; color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; width: 100%; transition: 0.3s; text-transform: uppercase; box-shadow: none; }
+    .btn-aviso:hover { background: #d32f2f; transform: scale(1.02); }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🏆 Tela de Sorteio</h1>
+    
+    <div class="premio-atual-box">
+      <div class="premio-label" id="labelPremio">Sorteando Agora:</div>
+      <div class="premio-nome" id="nomePremioTexto">🥇 1º Prêmio: iPhone 11</div>
+    </div>
+
+    <div class="caixa-roleta">
+      <span id="numeroExibicao">?</span>
+    </div>
+
+    <button id="btnSortear" onclick="iniciarSorteio()">🎲 Sortear iPhone 11</button>
+
+    <div class="historico-vencedores" id="areaHistorico">
+        </div>
+  </div>
+
+  <div id="modalAviso">
+      <div class="aviso-content">
+          <div class="aviso-icon">⚠️</div>
+          <h2 style="color: #f44336; margin-top: 0;">Atenção!</h2>
+          <p id="textoAviso" style="color: #ddd; font-size: 16px; margin-bottom: 25px;">Mensagem de erro aqui.</p>
+          <button class="btn-aviso" onclick="fecharAviso()">Entendi</button>
+      </div>
+  </div>
+
+  <script>
+    // 🚨 COLOQUE SEU LINK DO GOOGLE AQUI
+    const API_URL = "https://script.google.com/macros/s/AKfycbwPwdXDvl-xb9_SzQxM6wuG7AlMd-1kldGSB8XDdMzFWqdW4QuqL02cS_yyKuCyvrbPPA/exec";
+
+    // A LÓGICA DAS 3 FASES
+    const listaPremios = [
+        { icone: "🥇", titulo: "1º Prêmio", nome: "iPhone 11", corClass: "ouro" },
+        { icone: "🥈", titulo: "2º Prêmio", nome: "R$ 100,00", corClass: "prata" },
+        { icone: "🥉", titulo: "3º Prêmio", nome: "R$ 50,00", corClass: "bronze" }
+    ];
+    
+    let faseAtual = 0; // Vai de 0 a 2
+    
+    var btnSortear = document.getElementById('btnSortear');
+    var display = document.getElementById('numeroExibicao');
+    var areaHistorico = document.getElementById('areaHistorico');
+    var intervaloRoleta;
+
+    async function iniciarSorteio() {
+      btnSortear.disabled = true;
+      btnSortear.innerText = "A Girar Roleta...";
+
+      // Efeito visual de números passando rápido
+      intervaloRoleta = setInterval(function() {
+        display.innerText = Math.floor(Math.random() * 200) + 1;
+      }, 50);
+
+      try {
+        let resposta = await fetch(API_URL + "?action=realizarSorteio");
+        let dados = await resposta.json();
+        
+        if (dados.success) {
+            mostrarResultado(dados);
+        } else {
+            mostrarErro(dados.message);
+        }
+      } catch (erro) {
+        mostrarErro("Erro de conexão com o sistema. Tente novamente.");
+      }
+    }
+
+    function mostrarResultado(dados) {
+      setTimeout(function() {
+        clearInterval(intervaloRoleta);
+        display.innerText = dados.numero;
+        atirarConfetes();
+
+        let premio = listaPremios[faseAtual];
+
+        let cardHTML = `
+            <div class="card-vencedor ${premio.corClass}">
+                <div class="vencedor-titulo">${premio.icone} Ganhador do ${premio.nome}</div>
+                <div class="vencedor-dados"><b>Nº ${dados.numero}</b> - ${dados.nome}</div>
+                <div class="vencedor-zap">📱 WhatsApp: ${dados.whatsapp}</div>
+            </div>
+        `;
+        areaHistorico.innerHTML += cardHTML;
+
+        faseAtual++;
+
+        if (faseAtual < listaPremios.length) {
+            let proximoPremio = listaPremios[faseAtual];
+            document.getElementById('nomePremioTexto').innerText = `${proximoPremio.icone} ${proximoPremio.titulo}: ${proximoPremio.nome}`;
+            btnSortear.innerText = `🎲 Sortear ${proximoPremio.nome}`;
+            btnSortear.disabled = false;
+        } else {
+            document.getElementById('labelPremio').innerText = "Status:";
+            document.getElementById('nomePremioTexto').innerText = "🎉 Sorteios Finalizados! 🎉";
+            btnSortear.innerText = "Sorteio Concluído";
+            btnSortear.style.background = "#555";
+            btnSortear.disabled = true;
+        }
+      }, 3000);
+    }
+
+    // Função melhorada que aciona o modal bonito em vez do alert()
+    function mostrarErro(mensagem) {
+      clearInterval(intervaloRoleta);
+      display.innerText = "!";
+      
+      // Abre o Modal Customizado
+      document.getElementById('textoAviso').innerText = mensagem;
+      document.getElementById('modalAviso').style.display = 'flex';
+      
+      let premio = listaPremios[faseAtual];
+      btnSortear.disabled = false;
+      btnSortear.innerText = `🎲 Sortear ${premio.nome}`;
+    }
+
+    // Função para fechar o Modal Customizado
+    function fecharAviso() {
+      document.getElementById('modalAviso').style.display = 'none';
+    }
+
+    function atirarConfetes() {
+      var cores = ['#FFD700', '#FF5722', '#4CAF50', '#2196F3', '#E91E63'];
+      for (var i = 0; i < 60; i++) {
+        var confete = document.createElement('div');
+        confete.style.position = 'fixed';
+        confete.style.width = '12px';
+        confete.style.height = '12px';
+        confete.style.backgroundColor = cores[Math.floor(Math.random() * cores.length)];
+        confete.style.top = '-10px';
+        confete.style.left = Math.random() * 100 + 'vw';
+        confete.style.opacity = Math.random();
+        confete.style.zIndex = '9999';
+        confete.style.transition = 'top 3s ease-in, transform 3s ease-out';
+        document.body.appendChild(confete);
+        
+        setTimeout((function(c) { 
+            return function() { 
+                c.style.top = '100vh'; 
+                c.style.transform = 'rotate(' + Math.random() * 360 + 'deg)'; 
+            }; 
+        })(confete), 10);
+      }
+    }
+  </script>
+</body>
+</html>

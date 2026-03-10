@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório - Pix Influência</title>
+    <style>
+        /* Configuração de Impressão Horizontal (Paisagem) */
+        @page { size: A4 landscape; margin: 15mm; }
+        
+        /* Estilos Premium */
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f7f6; color: #333; }
+        
+        .container { max-width: 1200px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        
+        /* Cabeçalho do Relatório */
+        .header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 3px solid #2a5298; padding-bottom: 15px; margin-bottom: 25px; }
+        .header-titles h1 { text-transform: uppercase; font-size: 24px; font-weight: 900; color: #000; margin: 0 0 5px 0; letter-spacing: 1px; }
+        .header-titles p { margin: 0; color: #2a5298; font-weight: bold; font-size: 16px; }
+        .header-info { text-align: right; color: #666; font-size: 13px; }
+        
+        /* Tabela */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+        th { background-color: #2a5298; color: white; padding: 12px; font-weight: bold; text-align: center; text-transform: uppercase; border: 1px solid #1e3c72; }
+        td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+        tr:nth-child(even) { background-color: #f9f9f9; } /* Linhas zebradas */
+        
+        /* Alinhamentos Específicos */
+        .text-center { text-align: center; }
+        .text-bold { font-weight: bold; }
+        
+        /* Cores de Status na Tabela */
+        .status-pago { color: #2E8B57; font-weight: bold; background-color: #e8f5e9; }
+        .status-reservado { color: #f39c12; font-weight: bold; background-color: #fdf2e9; }
+        
+        /* Quadros de Resumo Financeiro */
+        .summary-wrapper { display: flex; justify-content: flex-end; gap: 20px; margin-top: 30px; }
+        .summary-card { background: #fff; border: 1px solid #ddd; border-left: 6px solid #2a5298; padding: 15px 25px; border-radius: 8px; text-align: right; min-width: 200px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .summary-card.green { border-left-color: #2E8B57; }
+        .summary-title { font-size: 12px; color: #777; text-transform: uppercase; font-weight: bold; margin-bottom: 5px; }
+        .summary-value { font-size: 26px; font-weight: 900; color: #333; }
+        .summary-value.green-text { color: #2E8B57; }
+
+        /* Botão de Imprimir (Invisível na hora da impressão) */
+        .btn-area { margin-bottom: 20px; text-align: right; }
+        .btn-imprimir { padding: 12px 25px; background: #FFD700; color: #000; border: none; cursor: pointer; border-radius: 8px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4); transition: 0.3s; }
+        .btn-imprimir:hover { background: #e6c200; transform: translateY(-2px); }
+        
+        @media print { 
+            body { background: white; padding: 0; margin: 0; }
+            .container { box-shadow: none; padding: 0; }
+            .btn-area { display: none; } 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="btn-area">
+            <button class="btn-imprimir" onclick="window.print()">🖨️ Imprimir Relatório</button>
+        </div>
+
+        <div class="header">
+            <div class="header-titles">
+                <h1>PIX INFLUÊNCIA</h1>
+                <p id="titulo">Carregando Relatório...</p>
+            </div>
+            <div class="header-info">
+                Data de Emissão: <b id="dataAtual">--/--/----</b><br>
+                Valor da Cota: <b>R$ 10,00</b>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 8%;">Nº</th>
+                    <th style="width: 35%;">Nome do Cliente</th>
+                    <th style="width: 17%;">WhatsApp</th>
+                    <th style="width: 25%;">Data/Hora da Reserva</th>
+                    <th style="width: 15%;">Status</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaCorpo">
+                <tr><td colspan="5" class="text-center text-bold" style="padding: 30px;">Aguarde, puxando dados do sistema...</td></tr>
+            </tbody>
+        </table>
+
+        <div class="summary-wrapper" id="areaResumo" style="display: none;">
+            <div class="summary-card">
+                <div class="summary-title" id="lblQtd">Total de Bilhetes</div>
+                <div class="summary-value" id="valQtd">0</div>
+            </div>
+            <div class="summary-card green">
+                <div class="summary-title" id="lblFaturamento">Faturamento Total</div>
+                <div class="summary-value green-text" id="valFaturamento">R$ 0,00</div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // 🚨 CONFIGURAÇÕES PREENCHIDAS
+        const API_URL = "https://script.google.com/macros/s/AKfycbwPwdXDvl-xb9_SzQxM6wuG7AlMd-1kldGSB8XDdMzFWqdW4QuqL02cS_yyKuCyvrbPPA/exec";
+        const VALOR_COTA = 10; // Valor de cada número
+
+        // Coloca a data atual no cabeçalho
+        const hoje = new Date();
+        document.getElementById('dataAtual').innerText = hoje.toLocaleDateString('pt-BR') + ' às ' + hoje.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+
+        async function carregarRelatorio() {
+            // Pega o tipo da URL (ex: relatorio.html?tipo=pagos)
+            const urlParams = new URLSearchParams(window.location.search);
+            const tipo = urlParams.get('tipo') || 'todos';
+            
+            // Define os Títulos baseados no tipo de relatório
+            let tituloRelatorio = "RELATÓRIO GERAL";
+            let lblQtd = "Total de Bilhetes Listados";
+            let lblFaturamento = "Valor Total (Bruto)";
+
+            if (tipo === 'pagos') {
+                tituloRelatorio = "RELATÓRIO DE BILHETES PAGOS";
+                lblQtd = "Qtd. de Bilhetes Pagos";
+                lblFaturamento = "Faturamento Confirmado";
+            } else if (tipo === 'reservados') {
+                tituloRelatorio = "RELATÓRIO DE RESERVAS PENDENTES";
+                lblQtd = "Qtd. de Reservas";
+                lblFaturamento = "Valor a Receber";
+            }
+
+            document.getElementById('titulo').innerText = tituloRelatorio;
+            document.getElementById('lblQtd').innerText = lblQtd;
+            document.getElementById('lblFaturamento').innerText = lblFaturamento;
+
+            try {
+                let resposta = await fetch(`${API_URL}?action=getReportData&tipo=${tipo}`);
+                let dados = await resposta.json();
+                
+                let corpo = document.getElementById('tabelaCorpo');
+                corpo.innerHTML = "";
+
+                if (dados.length === 0) {
+                    corpo.innerHTML = "<tr><td colspan='5' class='text-center text-bold' style='padding: 20px; color: #666;'>Nenhum registro encontrado para este filtro.</td></tr>";
+                    document.getElementById('areaResumo').style.display = 'none';
+                    return;
+                }
+
+                dados.forEach(item => {
+                    // Define a cor do status para ficar bonito na tabela
+                    let statusClasse = "";
+                    let st = item.status.toString().trim().toLowerCase();
+                    if (st === 'pago' || st === 'premiado') statusClasse = "status-pago";
+                    else if (st === 'reservado') statusClasse = "status-reservado";
+
+                    corpo.innerHTML += `
+                        <tr>
+                            <td class="text-center text-bold" style="font-size: 16px;">${item.numero}</td>
+                            <td class="text-bold">${item.nome}</td>
+                            <td class="text-center">${item.whatsapp}</td>
+                            <td class="text-center" style="color: #666;">${item.data}</td>
+                            <td class="text-center ${statusClasse}">${item.status.toUpperCase()}</td>
+                        </tr>
+                    `;
+                });
+
+                // --- CÁLCULO FINANCEIRO ---
+                let totalItens = dados.length;
+                let faturamento = totalItens * VALOR_COTA;
+                
+                // Formata para moeda BRL (R$ 0.000,00)
+                let faturamentoFormatado = faturamento.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+                // Preenche os quadros
+                document.getElementById('valQtd').innerText = totalItens;
+                document.getElementById('valFaturamento').innerText = faturamentoFormatado;
+                document.getElementById('areaResumo').style.display = 'flex';
+
+                // Auto-imprimir após 1.5 segundos para dar tempo de carregar o visual
+                setTimeout(() => { window.print(); }, 1500);
+
+            } catch (erro) {
+                document.getElementById('tabelaCorpo').innerHTML = "<tr><td colspan='5' class='text-center text-bold' style='color: red;'>Erro ao carregar dados do Google.</td></tr>";
+            }
+        }
+
+        carregarRelatorio();
+    </script>
+</body>
+</html>
