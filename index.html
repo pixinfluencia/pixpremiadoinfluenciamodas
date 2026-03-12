@@ -6,83 +6,21 @@
     <title>Pix Influência</title>
     <style>
         /* Estilos Premium Gerais */
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; margin: 0; padding: 0; color: #333; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; margin: 0; padding: 0; color: #333; padding-bottom: 80px;} /* padding extra para a barra flutuante */
         * { box-sizing: border-box; }
 
         /* Cabeçalho Preto Curvado */
-        .header-bg {
-            background-color: #000;
-            color: white;
-            text-align: center;
-            padding: 40px 20px 80px 20px;
-            border-bottom-left-radius: 50px;
-            border-bottom-right-radius: 50px;
-            position: relative;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        
-        .logo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid #FFD700;
-            object-fit: cover;
-            margin-bottom: 10px;
-            background-color: #000;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-        }
-
+        .header-bg { background-color: #000; color: white; text-align: center; padding: 40px 20px 80px 20px; border-bottom-left-radius: 50px; border-bottom-right-radius: 50px; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .logo { width: 120px; height: 120px; border-radius: 50%; border: 4px solid #FFD700; object-fit: cover; margin-bottom: 10px; background-color: #000; box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
         .header-bg h1 { margin: 10px 0 5px 0; font-size: 28px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;}
         .header-bg p { margin: 0; font-size: 16px; opacity: 0.9; }
 
-        /* Grade de Prêmios Modernizada e Alinhada */
-        .prizes-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            max-width: 800px;
-            margin: -50px auto 20px auto;
-            padding: 0 15px;
-            align-items: stretch; 
-        }
-
-        .prize-card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px 15px;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #eaeaea;
-        }
-
-        /* Card 1º Prêmio Destaque */
-        .prize-card.destaque { 
-            border: 2px solid #FFD700; 
-            transform: scale(1.02); 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-        }
-        
-        /* Grupo do 2º e 3º Prêmio */
-        .secondary-prizes {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            height: 100%; 
-        }
-        .secondary-prizes .prize-card {
-            flex: 1; 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-        }
+        /* Grade de Prêmios Modernizada */
+        .prizes-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; max-width: 800px; margin: -50px auto 20px auto; padding: 0 15px; align-items: stretch; }
+        .prize-card { background: white; border-radius: 15px; padding: 20px 15px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.1); position: relative; overflow: hidden; border: 1px solid #eaeaea; }
+        .prize-card.destaque { border: 2px solid #FFD700; transform: scale(1.02); display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; }
+        .secondary-prizes { display: flex; flex-direction: column; gap: 15px; height: 100%; }
+        .secondary-prizes .prize-card { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 15px; }
 
         .card-top-gold { position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #FFD700, #FFA500); }
         .card-top-silver { position: absolute; top: 0; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, #C0C0C0, #808080); }
@@ -92,59 +30,44 @@
         .prize-badge { font-size: 13px; font-weight: bold; color: #777; text-transform: uppercase; margin-bottom: 8px; display: block;}
         .prize-name { font-size: 22px; font-weight: 900; color: #2a5298; margin-bottom: 5px;}
         
-        /* Centralizar o valor da cota */
-        .price-card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px 15px;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            max-width: 300px;
-            margin: 0 auto 30px auto; 
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #eaeaea;
-        }
+        .price-card { background: white; border-radius: 15px; padding: 20px 15px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.1); max-width: 300px; margin: 0 auto 30px auto; position: relative; overflow: hidden; border: 1px solid #eaeaea; }
         .ticket-price { font-size: 26px; font-weight: 900; color: #2E8B57; }
 
         /* Grelha de Números */
         .instrucoes { text-align: center; margin: 30px 0 20px 0; font-size: 18px; font-weight: bold; color: #444; }
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(55px, 1fr)); 
-            gap: 10px; 
-            max-width: 650px; 
-            margin: 0 auto 50px auto; 
-            padding: 0 15px;
-        }
-        .number-box { 
-            padding: 15px 0; 
-            font-size: 18px; 
-            font-weight: bold; 
-            border-radius: 10px; 
-            cursor: pointer; 
-            text-align: center;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
-            transition: all 0.2s ease;
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(55px, 1fr)); gap: 10px; max-width: 650px; margin: 0 auto 50px auto; padding: 0 15px; }
+        
+        .number-box { padding: 15px 0; font-size: 18px; font-weight: bold; border-radius: 10px; cursor: pointer; text-align: center; box-shadow: 0 3px 6px rgba(0,0,0,0.08); transition: all 0.2s ease; }
         .number-box:hover { transform: translateY(-3px); box-shadow: 0 5px 10px rgba(0,0,0,0.15); }
         .number-box:active { transform: scale(0.95); }
         
+        /* Cores dos Status */
         .number-box.livre { background-color: #ffffff; color: #2E8B57; border: 2px solid #2E8B57; }
-        .number-box.livre:hover { background-color: #2E8B57; color: white; }
         .number-box.reservado { background-color: #ffc107; color: #333; border: 2px solid #ffc107; cursor: not-allowed; }
         .number-box.pago { background-color: #f44336; color: white; border: 2px solid #f44336; cursor: not-allowed; opacity: 0.8; }
+        
+        /* NOVO: Estilo quando o cliente Clica/Seleciona */
+        .number-box.selecionado { background-color: #2a5298; color: white; border: 2px solid #2a5298; transform: scale(1.05); box-shadow: 0 0 15px rgba(42,82,152,0.4); }
 
         #loading { text-align: center; font-weight: bold; color: #2a5298; margin: 20px; font-size: 18px; }
 
-        /* Modal Principal (Reserva e Sucesso) */
+        /* NOVO: Barra de Checkout Flutuante */
+        .checkout-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%; background: white; padding: 15px 20px; 
+            box-shadow: 0 -5px 25px rgba(0,0,0,0.2); display: none; justify-content: space-between; 
+            align-items: center; z-index: 100; border-top-left-radius: 20px; border-top-right-radius: 20px;
+        }
+        .checkout-info { font-size: 14px; font-weight: bold; color: #555; line-height: 1.2;}
+        .checkout-total { color: #2E8B57; font-size: 24px; font-weight: 900; display: block; margin-top: 2px;}
+        .checkout-btn { background: linear-gradient(90deg, #2E8B57, #267347); color: white; border: none; padding: 15px 25px; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(46,139,87,0.3); transition: 0.3s;}
+        .checkout-btn:hover { background: linear-gradient(90deg, #267347, #1e5c38); transform: translateY(-2px); }
+
+        /* Modais */
         #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); align-items: center; justify-content: center; z-index: 999; backdrop-filter: blur(5px); }
         .modal-content { background: white; padding: 30px; border-radius: 20px; width: 92%; max-width: 400px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.5); overflow-y: auto; max-height: 90vh; }
         
         input { width: 100%; padding: 14px; margin: 8px 0 15px 0; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 16px; outline: none; transition: border 0.3s; }
         input:focus { border-color: #2a5298; }
-        
-        /* Instrução de Ajuda do Zap */
         .zap-dica { font-size: 13px; color: #666; text-align: left; display: block; margin: -10px 0 15px 5px; line-height: 1.4;}
         
         button { padding: 16px; background: #2a5298; color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; width: 100%; margin-bottom: 12px; transition: 0.3s; }
@@ -153,42 +76,25 @@
         .close-btn:hover { background: #e2e6ea; }
         
         .valor-destaque { font-size: 26px; color: #2E8B57; font-weight: 900; margin: 15px 0; display: block; }
+        .numeros-lista { color: #2a5298; font-size: 18px; word-break: break-word; margin-bottom: 10px; display: block; font-weight: bold;}
 
-        /* Estilos do PIX */
+        /* Estilos do PIX e Zap */
         .pix-box { background: #f8f9fa; border: 2px dashed #2a5298; border-radius: 12px; padding: 20px; margin: 20px 0; }
         .pix-chave { font-size: 18px; font-weight: bold; color: #333; word-break: break-all; margin-bottom: 5px; display: block; letter-spacing: 1px;}
         .copy-btn { background: #FFD700; color: #000; padding: 12px; font-size: 15px; border-radius: 8px; cursor: pointer; border: none; width: auto; display: inline-block; font-weight: bold; }
         .copy-btn:hover { background: #e6c200; }
-
-        .whatsapp-btn { 
-            background-color: #25D366; color: white; display: flex; align-items: center; justify-content: center; 
-            text-decoration: none; padding: 16px; border-radius: 10px; font-weight: bold; font-size: 18px;
-            margin-top: 10px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); transition: 0.3s;
-        }
-        .whatsapp-btn:hover { background-color: #128C7E; transform: translateY(-2px); }
-        .success-icon { font-size: 60px; color: #5cb85c; margin-bottom: 10px; animation: pop 0.5s ease-out;}
-        
-        /* Estilo do link de suporte */
-        .suporte-link {
-            display: block;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            color: #666;
-            font-size: 14px;
-            text-decoration: underline;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+        .whatsapp-btn { background-color: #25D366; color: white; display: flex; align-items: center; justify-content: center; text-decoration: none; padding: 16px; border-radius: 10px; font-weight: bold; font-size: 18px; margin-top: 10px; transition: 0.3s; }
+        .whatsapp-btn:hover { background-color: #128C7E; }
+        .suporte-link { display: block; margin-top: 15px; margin-bottom: 5px; color: #666; font-size: 14px; text-decoration: underline; cursor: pointer; transition: 0.3s; }
         .suporte-link:hover { color: #2a5298; }
-        
+        .success-icon { font-size: 60px; color: #5cb85c; margin-bottom: 10px; animation: pop 0.5s ease-out;}
         @keyframes pop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
 
-        /* NOVO: Modal de Aviso Customizado (Erro/Atenção) */
+        /* Modal de Aviso Customizado */
         #modalAviso { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; z-index: 2000; backdrop-filter: blur(3px); }
         .aviso-content { background: white; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; border-top: 5px solid #f44336; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .aviso-icon { font-size: 50px; margin-bottom: 10px; animation: shake 0.5s; }
-        .btn-aviso { background: #f44336; color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; transition: 0.3s; text-transform: uppercase; margin-top: 15px; }
-        .btn-aviso:hover { background: #d32f2f; }
+        .btn-aviso { background: #f44336; color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; text-transform: uppercase; margin-top: 15px; }
         @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
     </style>
 </head>
@@ -201,24 +107,10 @@
     </div>
 
     <div class="prizes-container">
-        <div class="prize-card destaque">
-            <div class="card-top-gold"></div>
-            <span class="prize-badge">🥇 1º Prêmio Principal</span>
-            <div class="prize-name">Apple iPhone 11 (Seminovo)</div>
-            <img src="https://i.postimg.cc/fbWshvTY/Design-sem-nome-(1).png" alt="iPhone 11" style="width: 100px; height: auto; margin: 10px 0;">
-        </div>
-        
+        <div class="prize-card destaque"><div class="card-top-gold"></div><span class="prize-badge">🥇 1º Prêmio</span><div class="prize-name">Apple iPhone 11</div><img src="https://i.postimg.cc/fbWshvTY/Design-sem-nome-(1).png" alt="iPhone 11" style="width: 100px; height: auto; margin: 10px 0;"></div>
         <div class="secondary-prizes">
-            <div class="prize-card">
-                <div class="card-top-silver"></div>
-                <span class="prize-badge">🥈 2º Prêmio</span>
-                <div class="prize-name" style="font-size: 18px; margin: 0;">R$ 100,00 no PIX</div>
-            </div>
-            <div class="prize-card">
-                <div class="card-top-bronze"></div>
-                <span class="prize-badge">🥉 3º Prêmio</span>
-                <div class="prize-name" style="font-size: 18px; margin: 0;">R$ 50,00 no PIX</div>
-            </div>
+            <div class="prize-card"><div class="card-top-silver"></div><span class="prize-badge">🥈 2º Prêmio</span><div class="prize-name" style="font-size: 18px; margin: 0;">R$ 100,00 no PIX</div></div>
+            <div class="prize-card"><div class="card-top-bronze"></div><span class="prize-badge">🥉 3º Prêmio</span><div class="prize-name" style="font-size: 18px; margin: 0;">R$ 50,00 no PIX</div></div>
         </div>
     </div>
 
@@ -229,85 +121,83 @@
         <p style="font-size: 12px; color: #888; margin-top: 5px;">Apenas números pagos concorrem.</p>
     </div>
 
-    <div class="instrucoes">👇 Escolha o seu número da sorte 👇</div>
-    
+    <div class="instrucoes">👇 Escolha os seus números da sorte 👇</div>
     <p id="loading">A carregar números da sorte...</p>
+    
     <div class="grid" id="grid"></div>
+
+    <div id="checkoutBar" class="checkout-bar">
+        <div class="checkout-info">
+            <span id="qtdCheckout">0</span> cotas selecionadas<br>
+            <span class="checkout-total" id="totalCheckout">R$ 0,00</span>
+        </div>
+        <button class="checkout-btn" onclick="abrirModalCompra()">Reservar Agora ➔</button>
+    </div>
 
     <div id="modal">
         <div class="modal-content">
             
             <div id="telaForm">
-                <h2 style="color: #2a5298;">Número: <span id="numSelecionado"></span></h2>
-                <span class="valor-destaque">Valor: R$ 10,00</span>
+                <span style="font-size: 14px; color: #666; text-transform: uppercase; font-weight: bold;">Números Escolhidos:</span>
+                <div class="numeros-lista" id="numSelecionado"></div>
+                
+                <span class="valor-destaque" id="valorTotalModal">Total: R$ 0,00</span>
                 <input type="text" id="nome" placeholder="Seu Nome Completo">
                 
                 <input type="tel" id="whatsapp" value="55" placeholder="Ex: 5511999999999" maxlength="13">
                 <span class="zap-dica">💡 <b>Dica:</b> O <b>55</b> já está aí. Adicione o DDD + o dígito 9 + o seu número!</span>
                 
-                <button onclick="confirmarReserva()" id="btnReservar">Reservar Agora</button>
-                <button class="close-btn" onclick="fecharModal()">Cancelar</button>
+                <button onclick="confirmarReserva()" id="btnReservar">Concluir Reserva</button>
+                <button class="close-btn" onclick="fecharModal()">Voltar aos números</button>
             </div>
 
             <div id="telaSucesso" style="display: none;">
                 <div class="success-icon">✅</div>
                 <h2 style="color: #2E8B57; margin-top: 0;">Quase lá!</h2>
-                <p>Olá <b id="nomeSucesso"></b>! O número <b id="numSucesso"></b> está reservado.</p>
+                <p>Olá <b id="nomeSucesso"></b>! Os seus números estão reservados.</p>
+                <div class="numeros-lista" style="font-size: 16px;" id="numSucesso"></div>
                 
                 <div class="pix-box">
                     <span style="font-size: 13px; color: #666; display: block; margin-bottom: 5px;">Copie a Chave PIX abaixo:</span>
                     <span class="pix-chave" id="chavePixTexto">SUA_CHAVE_PIX_AQUI</span>
-                    
                     <div style="font-size: 14px; color: #444; margin-bottom: 15px; line-height: 1.5;">
                         Titular: <b id="nomePixTexto">NOME AQUI</b><br>
                         Banco: <b id="bancoPixTexto">BANCO AQUI</b>
                     </div>
-                    
                     <button class="copy-btn" id="btnCopiar" onclick="copiarPix()">📋 Copiar Chave PIX</button>
                 </div>
 
-                <span class="valor-destaque">Total: R$ 10,00</span>
+                <span class="valor-destaque" id="valorTotalSucesso">Total: R$ 0,00</span>
                 
-                <a href="#" id="linkZap" target="_blank" class="whatsapp-btn">
-                    📱 Enviar Comprovante no WhatsApp
-                </a>
-                
-                <a href="#" id="linkSuporte" target="_blank" class="suporte-link">
-                    Dúvidas ou problemas com o PIX? Fale conosco.
-                </a>
-
-                <button class="close-btn" onclick="fecharModal()" style="margin-top: 10px;">Fechar</button>
+                <a href="#" id="linkZap" target="_blank" class="whatsapp-btn">📱 Enviar Comprovante no WhatsApp</a>
+                <a href="#" id="linkSuporte" target="_blank" class="suporte-link">Dúvidas ou problemas com o PIX? Fale conosco.</a>
+                <button class="close-btn" onclick="fecharModal(true)" style="margin-top: 10px;">Fechar</button>
             </div>
 
         </div>
     </div>
 
-    <div id="modalAviso">
-        <div class="aviso-content">
-            <div class="aviso-icon">⚠️</div>
-            <h2 style="color: #f44336; margin-top: 0;">Atenção!</h2>
-            <p id="textoAviso" style="color: #444; font-size: 16px; margin-bottom: 15px;">Mensagem de erro aqui.</p>
-            <button class="btn-aviso" onclick="fecharAviso()">Entendi</button>
-        </div>
-    </div>
+    <div id="modalAviso"><div class="aviso-content"><div class="aviso-icon">⚠️</div><h2 style="color: #f44336; margin-top: 0;">Atenção!</h2><p id="textoAviso" style="color: #444; font-size: 16px; margin-bottom: 15px;">Mensagem de erro aqui.</p><button class="btn-aviso" onclick="fecharAviso()">Entendi</button></div></div>
 
     <script>
         // 🚨 CONFIGURAÇÕES PREENCHIDAS
-        const API_URL = "https://script.google.com/macros/s/AKfycbwPwdXDvl-xb9_SzQxM6wuG7AlMd-1kldGSB8XDdMzFWqdW4QuqL02cS_yyKuCyvrbPPA/exec"; 
+        const API_URL = "https://script.google.com/macros/s/AKfycbwk29vx5bzBFJmg7BCp9wphfPD1fHe2pd0N_oM7KXCHbrwAGBNE-05GeQmV7LYdwnFKOQ/exec"; 
         const SEU_WHATSAPP_ADMIN = "5575999512480"; 
         const MINHA_CHAVE_PIX = "75999512480"; 
-        const VALOR_RIFA = "R$ 10,00";
+        
+        // NOVO: Valor numérico para calcular o total automático
+        const VALOR_UNITARIO = 10.00; 
         
         const NOME_RECEBEDOR = "JESSICA SOUZA DO NASCIMENTO"; 
         const BANCO_RECEBEDOR = "BANCO ITAÚ"; 
         
-        let numeroEscolhido = null;
+        // NOVO: Array para guardar vários números
+        let numerosEscolhidos = [];
 
         document.getElementById('chavePixTexto').innerText = MINHA_CHAVE_PIX;
         document.getElementById('nomePixTexto').innerText = NOME_RECEBEDOR;
         document.getElementById('bancoPixTexto').innerText = BANCO_RECEBEDOR;
 
-        // 🛑 TRAVA DE SEGURANÇA NO CAMPO DO WHATSAPP
         document.getElementById('whatsapp').addEventListener('input', function() {
             let val = this.value.replace(/\D/g, '');
             if (!val.startsWith('55')) { val = '55' + val.replace(/^5*/, ''); }
@@ -315,15 +205,10 @@
             this.value = val;
         });
 
-        // 👇 FUNÇÕES DO MODAL CUSTOMIZADO DE AVISO 👇
-        function mostrarErro(mensagem) {
-            document.getElementById('textoAviso').innerText = mensagem;
-            document.getElementById('modalAviso').style.display = 'flex';
-        }
-
-        function fecharAviso() {
-            document.getElementById('modalAviso').style.display = 'none';
-        }
+        function mostrarErro(mensagem) { document.getElementById('textoAviso').innerText = mensagem; document.getElementById('modalAviso').style.display = 'flex'; }
+        function fecharAviso() { document.getElementById('modalAviso').style.display = 'none'; }
+        
+        function formatarMoeda(valor) { return "R$ " + valor.toFixed(2).replace('.', ','); }
 
         async function carregarNumeros() {
             try {
@@ -332,29 +217,72 @@
                 document.getElementById('loading').style.display = 'none';
                 let grid = document.getElementById('grid');
                 grid.innerHTML = '';
+                
+                // Limpa seleções ao recarregar
+                numerosEscolhidos = [];
+                atualizarBarraCheckout();
+
                 dados.forEach(item => {
                     let div = document.createElement('div');
                     let statusClasse = item.status.toString().trim().toLowerCase();
                     div.className = 'number-box ' + statusClasse;
                     div.innerText = item.numero;
-                    if (statusClasse === 'livre') { div.onclick = () => abrirModal(item.numero); }
+                    
+                    // NOVO: Lógica de seleção ao clicar
+                    if (statusClasse === 'livre') { 
+                        div.onclick = function() { toggleNumero(item.numero, this); }; 
+                    }
                     grid.appendChild(div);
                 });
-            } catch (erro) { document.getElementById('loading').innerText = "Erro ao carregar."; }
+            } catch (erro) { document.getElementById('loading').innerText = "Erro ao carregar os números."; }
         }
 
-        function abrirModal(numero) {
-            numeroEscolhido = numero;
-            document.getElementById('numSelecionado').innerText = numero;
+        // NOVO: Função para selecionar/deselecionar
+        function toggleNumero(numero, elemento) {
+            if (numerosEscolhidos.includes(numero)) {
+                numerosEscolhidos = numerosEscolhidos.filter(n => n !== numero);
+                elemento.classList.remove('selecionado');
+            } else {
+                numerosEscolhidos.push(numero);
+                elemento.classList.add('selecionado');
+            }
+            atualizarBarraCheckout();
+        }
+
+        // NOVO: Controla a barra inferior
+        function atualizarBarraCheckout() {
+            let barra = document.getElementById('checkoutBar');
+            if (numerosEscolhidos.length > 0) {
+                barra.style.display = 'flex';
+                document.getElementById('qtdCheckout').innerText = numerosEscolhidos.length;
+                document.getElementById('totalCheckout').innerText = formatarMoeda(numerosEscolhidos.length * VALOR_UNITARIO);
+            } else {
+                barra.style.display = 'none';
+            }
+        }
+
+        // NOVO: Abre o modal de compras com os dados todos
+        function abrirModalCompra() {
+            if(numerosEscolhidos.length === 0) return;
+            
+            // Ordena os números de forma bonita (1, 2, 3...)
+            numerosEscolhidos.sort((a,b) => a - b);
+            
+            document.getElementById('numSelecionado').innerText = numerosEscolhidos.join(', ');
+            document.getElementById('valorTotalModal').innerText = "Total: " + formatarMoeda(numerosEscolhidos.length * VALOR_UNITARIO);
+            
             document.getElementById('telaForm').style.display = 'block';
             document.getElementById('telaSucesso').style.display = 'none';
             document.getElementById('modal').style.display = 'flex';
         }
 
-        function fecharModal() { 
+        function fecharModal(recarregar = false) { 
             document.getElementById('modal').style.display = 'none'; 
-            document.getElementById('nome').value = '';
-            document.getElementById('whatsapp').value = '55';
+            if(recarregar) {
+                document.getElementById('loading').style.display = 'block';
+                document.getElementById('grid').innerHTML = '';
+                carregarNumeros();
+            }
         }
 
         async function confirmarReserva() {
@@ -362,41 +290,53 @@
             let whatsapp = document.getElementById('whatsapp').value;
             let btn = document.getElementById('btnReservar');
             
-            // 🛑 CHAMA O MODAL BONITO SE FALTAR DADOS
             if (!nome || whatsapp.length !== 13) { 
-                mostrarErro("Preencha seu nome e certifique-se de digitar os 13 números obrigatórios do WhatsApp (55 + DDD + 9 + Número do celular)."); 
+                mostrarErro("Preencha seu nome e os 13 números do WhatsApp (55 + DDD + 9 + Número)."); 
                 return; 
             }
             
             btn.innerText = "A processar...";
             btn.disabled = true;
+            
             try {
+                // NOVO: Envia o ARRAY de números em vez de um só
                 let resposta = await fetch(API_URL, {
                     method: 'POST',
-                    body: JSON.stringify({ action: "reserve", numero: numeroEscolhido, nome: nome, telefone: whatsapp })
+                    body: JSON.stringify({ action: "reserve", numero: numerosEscolhidos, nome: nome, telefone: whatsapp })
                 });
+                
                 let resultado = await resposta.json();
+                
                 if (resultado.success) {
+                    let totalPagar = formatarMoeda(numerosEscolhidos.length * VALOR_UNITARIO);
+                    let strNumeros = numerosEscolhidos.join(', ');
+                    
                     document.getElementById('telaForm').style.display = 'none';
                     document.getElementById('telaSucesso').style.display = 'block';
                     document.getElementById('nomeSucesso').innerText = nome;
-                    document.getElementById('numSucesso').innerText = numeroEscolhido;
+                    document.getElementById('numSucesso').innerText = strNumeros;
+                    document.getElementById('valorTotalSucesso').innerText = "Total: " + totalPagar;
                     
-                    let msg = `Olá! Meu nome é ${nome}. Reservei o número ${numeroEscolhido} no Pix Influência. Segue o comprovante de ${VALOR_RIFA}:`;
+                    let msg = `Olá! Meu nome é ${nome}. Reservei as cotas [${strNumeros}] no Pix Influência. Segue o comprovante de ${totalPagar}:`;
                     document.getElementById('linkZap').href = `https://wa.me/${SEU_WHATSAPP_ADMIN}?text=${encodeURIComponent(msg)}`;
                     
-                    let msgSuporte = `Olá! Tentei reservar o número ${numeroEscolhido} no Pix Influência, mas estou com dificuldades para fazer o pagamento PIX. Pode me ajudar?`;
+                    let msgSuporte = `Olá! Tentei reservar os números [${strNumeros}] no Pix Influência, mas estou com dificuldades no PIX.`;
                     document.getElementById('linkSuporte').href = `https://wa.me/${SEU_WHATSAPP_ADMIN}?text=${encodeURIComponent(msgSuporte)}`;
                     
-                    carregarNumeros();
+                    // Limpa a barra
+                    numerosEscolhidos = [];
+                    atualizarBarraCheckout();
+                    document.getElementById('nome').value = '';
+                    document.getElementById('whatsapp').value = '55';
+                    
                 } else { 
-                    mostrarErro(resultado.message); // Usa o modal para erro do Google (ex: número já escolhido)
-                    btn.innerText = "Reservar Agora"; 
+                    mostrarErro(resultado.message); 
+                    btn.innerText = "Concluir Reserva"; 
                     btn.disabled = false; 
                 }
             } catch (erro) { 
-                mostrarErro("Erro de conexão com o servidor. Tente novamente."); // Erro de internet
-                btn.innerText = "Reservar Agora"; 
+                mostrarErro("Erro de conexão com o servidor. Tente novamente."); 
+                btn.innerText = "Concluir Reserva"; 
                 btn.disabled = false; 
             }
         }
@@ -406,10 +346,7 @@
                 let btn = document.getElementById('btnCopiar');
                 btn.innerText = "✅ Chave Copiada!";
                 btn.style.background = "#5cb85c";
-                setTimeout(() => {
-                    btn.innerText = "📋 Copiar Chave PIX";
-                    btn.style.background = "#FFD700";
-                }, 3000);
+                setTimeout(() => { btn.innerText = "📋 Copiar Chave PIX"; btn.style.background = "#FFD700"; }, 3000);
             });
         }
 
@@ -417,4 +354,3 @@
     </script>
 </body>
 </html>
-
